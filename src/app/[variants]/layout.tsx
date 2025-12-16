@@ -14,6 +14,7 @@ import GlobalProvider from '@/layout/GlobalProvider';
 import { Locales } from '@/locales/resources';
 import { DynamicLayoutProps } from '@/types/next';
 import { RouteVariants } from '@/utils/server/routeVariants';
+import { PostCurrentUrl } from './post-current-url';
 
 const inVercel = process.env.VERCEL === '1';
 
@@ -49,6 +50,7 @@ const RootLayout = async ({ children, params, modal }: RootLayoutProps) => {
             variants={variants}
           >
             <AuthProvider>
+              <PostCurrentUrl />
               {children}
               {!isMobile && modal}
             </AuthProvider>
