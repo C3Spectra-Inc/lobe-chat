@@ -34,11 +34,11 @@ export function PostCurrentUrl(props?: UsePostPathProps) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    let lastUrl = window.location.pathname + window.location.search;
+    let lastUrl = window.location.origin + window.location.pathname + window.location.search;
     setCurrentUrl(lastUrl);
 
     const checkPath = () => {
-      const current = window.location.pathname + window.location.search;
+      const current = window.location.origin + window.location.pathname + window.location.search;
       if (current !== lastUrl) {
         lastUrl = current;
         setCurrentUrl(current);
