@@ -14,6 +14,8 @@ import GlobalProvider from '@/layout/GlobalProvider';
 import { Locales } from '@/locales/resources';
 import { DynamicLayoutProps } from '@/types/next';
 import { RouteVariants } from '@/utils/server/routeVariants';
+// Bridge to let an embedding parent request the current URL or push theme hints (env-gated)
+import { PostCurrentUrl } from './post-current-url';
 
 const inVercel = process.env.VERCEL === '1';
 
@@ -49,6 +51,8 @@ const RootLayout = async ({ children, params, modal }: RootLayoutProps) => {
             variants={variants}
           >
             <AuthProvider>
+              {/* Mount embed bridge; inert unless NEXT_PUBLIC_ENABLE_EMBED_BRIDGE=1 */}
+              <PostCurrentUrl />
               {children}
               {!isMobile && modal}
             </AuthProvider>
