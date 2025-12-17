@@ -16,6 +16,26 @@ export const initSSOProviders = () => {
     : [];
 };
 
+const thirdPartyCookieOptions = authEnv.NEXT_AUTH_COOKIE_SAMESITE_NONE
+  ? {
+      callbackUrl: {
+        name: `__Secure-next-auth.callback-url`,
+        options: {
+          sameSite: 'none',
+          secure: true,
+        },
+      },
+      sessionToken: {
+        name: `__Secure-next-auth.session-token`,
+        options: {
+          httpOnly: true,
+          sameSite: 'none',
+          secure: true,
+        },
+      },
+    }
+  : undefined;
+
 // Notice this is only an object, not a full Auth.js instance
 export default {
   callbacks: {
@@ -39,23 +59,7 @@ export default {
       return session;
     },
   },
-  cookies: {
-    callbackUrl: {
-      name: `__Secure-next-auth.callback-url`,
-      options: {
-        sameSite: "none",
-        secure: true,
-      },
-    },
-    sessionToken: {
-      name: `__Secure-next-auth.session-token`,
-      options: {
-        httpOnly: true,
-        sameSite: "none",
-        secure: true,
-      },
-    },
-  },
+  ...(thirdPartyCookieOptions ? { cookies: thirdPartyCookieOptions } : {}),
   debug: authEnv.NEXT_AUTH_DEBUG,
   pages: {
     error: '/next-auth/error',

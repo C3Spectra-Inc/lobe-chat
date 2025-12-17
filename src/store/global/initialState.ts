@@ -108,7 +108,7 @@ export interface GlobalState {
 export const INITIAL_STATUS = {
   expandSessionGroupKeys: [SessionDefaultGroup.Pinned, SessionDefaultGroup.Default],
   filePanelWidth: 320,
-  hidePWAInstaller: true,
+  hidePWAInstaller: false,
   hideThreadLimitAlert: false,
   imagePanelWidth: 320,
   imageTopicPanelWidth: 80,
@@ -124,7 +124,7 @@ export const INITIAL_STATUS = {
   showSessionPanel: true,
   showSystemRole: false,
   systemRoleExpandedMap: {},
-  themeMode: 'light',
+  themeMode: 'auto',
   threadInputHeight: 200,
   zenMode: false,
 } satisfies SystemStatus;

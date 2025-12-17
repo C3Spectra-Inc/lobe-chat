@@ -34,6 +34,11 @@ export const getAppConfig = () => {
     client: {
       NEXT_PUBLIC_BASE_PATH: z.string(),
       NEXT_PUBLIC_ENABLE_SENTRY: z.boolean(),
+      NEXT_PUBLIC_ENABLE_EMBED_BRIDGE: z.boolean().optional(),
+      NEXT_PUBLIC_EMBED_ALLOWED_ORIGINS: z.string().optional(),
+      NEXT_PUBLIC_EMBED_THEME_PARAM: z.string().optional(),
+      NEXT_PUBLIC_EMBED_URL_REQUEST_KEY: z.string().optional(),
+      NEXT_PUBLIC_EMBED_URL_RESPONSE_KEY: z.string().optional(),
     },
     server: {
       ACCESS_CODES: z.any(z.string()).optional(),
@@ -63,6 +68,11 @@ export const getAppConfig = () => {
 
       // Sentry
       NEXT_PUBLIC_ENABLE_SENTRY: !!process.env.NEXT_PUBLIC_SENTRY_DSN,
+      NEXT_PUBLIC_ENABLE_EMBED_BRIDGE: process.env.NEXT_PUBLIC_ENABLE_EMBED_BRIDGE === '1',
+      NEXT_PUBLIC_EMBED_ALLOWED_ORIGINS: process.env.NEXT_PUBLIC_EMBED_ALLOWED_ORIGINS,
+      NEXT_PUBLIC_EMBED_THEME_PARAM: process.env.NEXT_PUBLIC_EMBED_THEME_PARAM,
+      NEXT_PUBLIC_EMBED_URL_REQUEST_KEY: process.env.NEXT_PUBLIC_EMBED_URL_REQUEST_KEY,
+      NEXT_PUBLIC_EMBED_URL_RESPONSE_KEY: process.env.NEXT_PUBLIC_EMBED_URL_RESPONSE_KEY,
 
       ACCESS_CODES: ACCESS_CODES as any,
 

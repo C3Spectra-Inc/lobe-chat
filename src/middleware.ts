@@ -76,7 +76,8 @@ const defaultMiddleware = (request: NextRequest) => {
 
   // highest priority is explicitly in search params, like ?hl=zh-CN
   const explicitlyLocale = (url.searchParams.get('hl') || undefined) as Locales | undefined;
-  const explicitlyMobile = (url.searchParams.get('mb') || undefined);
+  const explicitlyMobile = url.searchParams.get('mb');
+  const isMobileFromQuery = explicitlyMobile === '1' || explicitlyMobile === 'true';
 
   // if it's a new user, there's no cookie, So we need to use the fallback language parsed by accept-language
   const browserLanguage = parseBrowserLanguage(request.headers);
@@ -101,7 +102,7 @@ const defaultMiddleware = (request: NextRequest) => {
   });
   // 2. Create normalized preference values
   const route = RouteVariants.serializeVariants({
-    isMobile: !!explicitlyMobile || device.type === 'mobile',
+    isMobile: isMobileFromQuery || device.type === 'mobile',
     locale,
     theme,
   });
