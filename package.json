@@ -124,7 +124,8 @@
     ]
   },
   "overrides": {
-    "mdast-util-gfm-autolink-literal": "2.0.0"
+    "mdast-util-gfm-autolink-literal": "2.0.0",
+    "motion": "12.24.11"
   },
   "dependencies": {
     "@ant-design/icons": "^5.6.1",
@@ -402,7 +403,8 @@
       "@vercel/speed-insights"
     ],
     "overrides": {
-      "mdast-util-gfm-autolink-literal": "2.0.0"
+      "mdast-util-gfm-autolink-literal": "2.0.0",
+      "motion": "12.24.11"
     }
   }
 }
