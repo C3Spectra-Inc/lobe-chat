@@ -1,12 +1,12 @@
 import type { NextAuthConfig } from 'next-auth';
 
-import { authEnv } from '@/config/auth';
+import { authEnv } from '@/envs/auth';
 
 import { ssoProviders } from './sso-providers';
 
 export const initSSOProviders = () => {
   return authEnv.NEXT_PUBLIC_ENABLE_NEXT_AUTH
-    ? authEnv.NEXT_AUTH_SSO_PROVIDERS.split(/[,，]/).map((provider) => {
+    ? authEnv.NEXT_AUTH_SSO_PROVIDERS.split(/[,，]/).map((provider: string) => {
         const validProvider = ssoProviders.find((item) => item.id === provider.trim());
 
         if (validProvider) return validProvider.provider;
