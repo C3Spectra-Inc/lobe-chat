@@ -2,7 +2,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ThemeAppearance } from 'antd-style';
 import { ResolvingViewport } from 'next';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import { isRtlLang } from 'rtl-detect';
 
 import Analytics from '@/components/Analytics';
@@ -52,7 +52,9 @@ const RootLayout = async ({ children, params, modal }: RootLayoutProps) => {
           >
             <AuthProvider>
               {/* Mount embed bridge; inert unless NEXT_PUBLIC_ENABLE_EMBED_BRIDGE=1 */}
-              <PostCurrentUrl />
+              <Suspense fallback={null}>
+                <PostCurrentUrl />
+              </Suspense>
               {children}
               {!isMobile && modal}
             </AuthProvider>
