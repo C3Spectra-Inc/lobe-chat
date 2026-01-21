@@ -3,6 +3,7 @@ import type { NextAuthConfig } from 'next-auth';
 import { authEnv } from '@/envs/auth';
 
 import { ssoProviders } from './sso-providers';
+import { LobeNextAuthDbAdapter } from './adapter';
 
 export const initSSOProviders = () => {
   return authEnv.NEXT_PUBLIC_ENABLE_NEXT_AUTH
@@ -18,6 +19,7 @@ export const initSSOProviders = () => {
 
 // Notice this is only an object, not a full Auth.js instance
 export default {
+  adapter: LobeNextAuthDbAdapter(),
   callbacks: {
     // Note: Data processing order of callback: authorize --> jwt --> session
     async jwt({ token, user }) {
