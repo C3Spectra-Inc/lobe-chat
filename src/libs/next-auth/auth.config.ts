@@ -25,15 +25,17 @@ export default {
       if (user?.id) {
         token.userId = user?.id;
       }
+      if (!token.userId && token.sub) {
+        token.userId = token.sub;
+      }
       return token;
     },
     async session({ session, token, user }) {
       if (session.user) {
         // ref: https://authjs.dev/guides/extending-the-session#with-database
-        if (user) {
-          session.user.id = user.id;
-        } else {
-          session.user.id = (token.userId ?? session.user.id) as string;
+        const resolvedUserId = user?.id ?? token.userId ?? token.sub ?? session.user.id;
+        if (resolvedUserId) {
+          session.user.id = resolvedUserId as string;
         }
       }
       return session;
