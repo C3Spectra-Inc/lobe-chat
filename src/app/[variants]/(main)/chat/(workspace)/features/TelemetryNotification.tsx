@@ -4,13 +4,16 @@ import { Avatar, Button, Icon } from '@lobehub/ui';
 import { createStyles } from 'antd-style';
 import { LucideArrowUpRightFromSquare, TelescopeIcon } from 'lucide-react';
 import Link from 'next/link';
-import { memo } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { memo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
 
 import Notification from '@/components/Notification';
 import { BRANDING_NAME } from '@/const/branding';
 import { PRIVACY_URL } from '@/const/url';
+import { useGlobalStore } from '@/store/global';
+import { systemStatusSelectors } from '@/store/global/selectors';
 import { useUserStore } from '@/store/user';
 import { preferenceSelectors } from '@/store/user/selectors';
 
@@ -30,10 +33,23 @@ const TelemetryNotification = memo<{ mobile?: boolean }>(({ mobile }) => {
   const { t } = useTranslation('common');
   const isPreferenceInit = useUserStore(preferenceSelectors.isPreferenceInit);
 
+  const searchParams = useSearchParams();
+  const themeMode = useGlobalStore(systemStatusSelectors.themeMode);
+  const switchThemeMode = useGlobalStore((s) => s.switchThemeMode);
+
   const [useCheckTrace, updatePreference] = useUserStore((s) => [
     s.useCheckTrace,
     s.updatePreference,
   ]);
+
+  useEffect(() => {
+    const thm = searchParams.get('thm');
+    if (themeMode !== 'light' && thm === 'l') {
+      switchThemeMode('light');
+    } else if (themeMode === 'light' && thm === 'd') {
+      switchThemeMode('dark');
+    }
+  }, [switchThemeMode]);
 
   const { data: showModal, mutate } = useCheckTrace(isPreferenceInit);
 
